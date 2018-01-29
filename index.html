@@ -1,11 +1,20 @@
 <!DOCTYPE html>
 <html>
+<script src="draw.js"></script>
 <head>
 	<title>
 		Game of Life
 	</title>
 </head>
 <body>
-
+	<div style="position: absolute; color: green;left: 20px;top: 10px">
+		Enter the cell size(default 5px): <input type="text" name="" value="" onchange="LifeGrid.changeSize()">
+	</div>
 </body>
+<canvas style="border: 2px solid red"></canvas>
+<script src="main.js"></script>
+<script type="text/javascript">
+	LifeGrid.init();
+	LifeGrid.run();
+</script>
 </html>
