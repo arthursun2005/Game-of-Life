@@ -127,5 +127,8 @@ var LifeGrid = {
 		}else{
 			alert("Enter a positve number for speed");
 		}
+	},
+	reset: function(){
+		for(var i=0;i<this.cx*this.cy;i++){this.cells[i]=0;}
 	}
 };

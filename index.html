@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html>
 <script src="draw.js"></script>
+<script src="math2.js"></script>
 <head>
 	<title>
 		Game of Life
@@ -12,6 +13,11 @@
 	</div>
 	<div style="position: absolute; color: blue;left: 15px;top: 30px;font-weight: bold;">
 		The milliseconds between of each day(default 200): <input type="number" name="" value="" onchange="LifeGrid.changeSpeed(this.value)">
+	</div>
+	<div>
+		<button onclick="LifeGrid.reset()" style="position: absolute; color: red;left: 15px;top: 50px;font-weight: bold;width: 80px;height: 40px;font-size: 22px">
+			Reset
+		</button>
 	</div>
 </body>
 <canvas style="border: 2px solid blue" id="main"></canvas>
