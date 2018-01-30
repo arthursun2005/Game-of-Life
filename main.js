@@ -1,9 +1,10 @@
 var LifeGrid = {
-	speed: 200,
+	speed: 60,
 	life: "#00FF00",
 	dead: "#FFFFFF",
-	size: 12,
+	size: 15,
 	cells: [],
+	controls: [true,'glider'],
 	get: function(x,y){
 		var v = this.cells[x+y*this.cx];
 		return v;
@@ -34,11 +35,26 @@ var LifeGrid = {
 		}
 		return r;
 	},
-	mouseInput: function(event){
+	mousemove: function(event){
 		var e = event || window.event;
 		var x = Math.floor(e.clientX/this.size);
 		var y = Math.floor(e.clientY/this.size);
-		this.change(x,y,1);
+		if(this.controls[0]) this.change(x,y,1);
+	},
+	mouseclick: function(event){
+		var e = event || window.event;
+		var px = Math.floor(e.clientX/this.size);
+		var py = Math.floor(e.clientY/this.size);
+		for(var x=-1;x<=1;x++){
+			for(var y=-1;y<=1;y++){
+				var n = x+1+y*3+3;
+				if(n == 2 || n == 3 || n == 5 || n == 7 || n == 8){
+					this.change(px+x,py+y,1);
+				}else{
+					this.change(px+x,py+y,0);
+				}
+			}
+		}
 	},
 	init: function(s){
 		if(!s) s=0;

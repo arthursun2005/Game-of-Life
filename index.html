@@ -9,13 +9,28 @@
 </head>
 <body>
 	<div style="position: absolute; color: blue;left: 15px;top: 10px;font-weight: bold;">
-		Enter the cell size(default 12px): <input type="number" name="" value="" onchange="LifeGrid.changeSize(this.value);">
+		Enter the cell size(default 15px): <input type="number" name="" value="" onchange="LifeGrid.changeSize(this.value);">
 	</div>
 	<div style="position: absolute; color: blue;left: 15px;top: 30px;font-weight: bold;">
-		The milliseconds between of each day(default 200): <input type="number" name="" value="" onchange="LifeGrid.changeSpeed(this.value)">
+		The milliseconds between of each day(default 60): <input type="number" name="" value="" onchange="LifeGrid.changeSpeed(this.value)">
 	</div>
 	<div>
-		<button onclick="LifeGrid.reset()" style="position: absolute; color: red;left: 15px;top: 50px;font-weight: bold;width: 80px;height: 40px;font-size: 22px">
+		<button onclick="LifeGrid.reset()" style="position: absolute; left: 15px;top: 50px;font-weight: bold;width: 80px;height: 40px;font-size: 22px;color: red;">
+			Reset
+		</button>
+		<button onclick="switchmove()" style="position: absolute; color: red;left: 105px;top: 50px;font-weight: bold;width: 160px;height: 20px;">
+			putting down cells: on/off
+		</button>
+		<span style="position: absolute; color: black;left: 265px;top: 50px;font-weight: bold;">
+			click functions what?
+		</span>
+		<button onclick="function(){}" style="position: absolute; color: red;left: 165px;top: 70px;font-weight: bold;width: 50px;height: 25px;">
+			glider
+		</button>
+		<button onclick="" style="position: absolute; color: red;left: 225px;top: 70px;font-weight: bold;width: 50px;height: 25px;">
+			LWSS
+		</button>
+		<button onclick="" style="position: absolute; color: red;left: 285px;top: 70px;font-weight: bold;width: 50px;height: 25px;">
 			Reset
 		</button>
 	</div>
@@ -26,6 +41,10 @@
 	LifeGrid.init();
 	LifeGrid.run();
 	LifeGrid.step();
-	window.onmousemove = LifeGrid.mouseInput.bind(LifeGrid);
+	window.onmousemove = LifeGrid.mousemove.bind(LifeGrid);
+	window.onclick = LifeGrid.mouseclick.bind(LifeGrid);
+	function switchmove(){
+		LifeGrid.controls[0] = !LifeGrid.controls[0];
+	}
 </script>
 </html>
