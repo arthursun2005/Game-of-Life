@@ -8,10 +8,10 @@
 </head>
 <body>
 	<div style="position: absolute; color: blue;left: 15px;top: 10px;font-weight: bold;">
-		Enter the cell size(default 5px): <input type="number" name="" value="" onchange="LifeGrid.changeSize();">
+		Enter the cell size(default 12px): <input type="number" name="" value="" onchange="LifeGrid.changeSize(this.value);">
 	</div>
 	<div style="position: absolute; color: blue;left: 15px;top: 30px;font-weight: bold;">
-		The milliseconds between each frame(default 500): <input type="number" name="" value="" onchange="LifeGrid.changeSpeed()">
+		The milliseconds between of each day(default 200): <input type="number" name="" value="" onchange="LifeGrid.changeSpeed(this.value)">
 	</div>
 </body>
 <canvas style="border: 2px solid blue" id="main"></canvas>
@@ -19,5 +19,7 @@
 <script type="text/javascript">
 	LifeGrid.init();
 	LifeGrid.run();
+	LifeGrid.step();
+	window.onmousemove = LifeGrid.mouseInput.bind(LifeGrid);
 </script>
 </html>
