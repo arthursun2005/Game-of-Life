@@ -4,7 +4,8 @@ var LifeGrid = {
 	dead: "#FFFFFF",
 	size: 15,
 	cells: [],
-	controls: [true,'glider'],
+	controls: [false,'glider'],
+	running: true,
 	get: function(x,y){
 		var v = this.cells[x+y*this.cx];
 		return v;
@@ -19,7 +20,7 @@ var LifeGrid = {
 			if(px<0) continue;
 			for(var py=y-1;py<=y+1;py++){
 				if(py<0) continue;
-				var n = (px-x+1)+(py-y+1)*3;
+				var n = (px-x+1)%this.cx+(py-y+1)*3;
 				var value = this.get(px,py) ? 1 : 0;
 				ns[n] = value;
 			}
@@ -41,17 +42,33 @@ var LifeGrid = {
 		var y = Math.floor(e.clientY/this.size);
 		if(this.controls[0]) this.change(x,y,1);
 	},
+	changeClick: function(name){
+		this.controls[1] = name;
+	},
 	mouseclick: function(event){
 		var e = event || window.event;
 		var px = Math.floor(e.clientX/this.size);
 		var py = Math.floor(e.clientY/this.size);
-		for(var x=-1;x<=1;x++){
-			for(var y=-1;y<=1;y++){
-				var n = x+1+y*3+3;
-				if(n == 2 || n == 3 || n == 5 || n == 7 || n == 8){
+		if(this.controls[1] == 'glider'){
+			for(var x=-1;x<=1;x++){
+				for(var y=-1;y<=1;y++){
+					var n = x+1+y*3+3;
+					if(n == 2 || n == 3 || n == 5 || n == 7 || n == 8){this.change(px+x,py+y,1);
+					}else{this.change(px+x,py+y,0);}
+				}
+			}
+		}else if(this.controls[1] == 'lwss'){
+			for(var x=-2;x<=2;x++){
+				for(var y=-1;y<=2;y++){
+					var n = x+2+(y+1)*5;
+					if((n>0 && n<6) || n == 9 || n == 14 || n == 15 || n == 18){this.change(px+x,py+y,1);
+					}else{this.change(px+x,py+y,0);}
+				}
+			}
+		}else if(this.controls[1] == 'block'){
+			for(var x=0;x<=1;x++){
+				for(var y=0;y<=1;y++){
 					this.change(px+x,py+y,1);
-				}else{
-					this.change(px+x,py+y,0);
 				}
 			}
 		}
@@ -79,6 +96,10 @@ var LifeGrid = {
 		}
 	},
 	step: function(){
+		var run_handler = this.step.bind(this);
+		var speed = this.speed;
+		setTimeout(run_handler, speed);
+		if(!this.running) return;
 		/* main code */
 
 		/*
@@ -116,9 +137,6 @@ var LifeGrid = {
 			this.cells[i] = bcells[i];
 		}
 		/********************************/
-		var run_handler = this.step.bind(this);
-		var speed = this.speed;
-		setTimeout(run_handler, speed);
 	},
 	run: function(){
 		this.D.rect(0,0,100,100,"#FFFFFF");

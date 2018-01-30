@@ -7,44 +7,55 @@
 		Game of Life
 	</title>
 </head>
+<canvas style="border: 2px solid green" id="main"></canvas>
 <body>
-	<div style="position: absolute; color: blue;left: 15px;top: 10px;font-weight: bold;">
+	<div style="font-weight: bold;">
 		Enter the cell size(default 15px): <input type="number" name="" value="" onchange="LifeGrid.changeSize(this.value);">
 	</div>
-	<div style="position: absolute; color: blue;left: 15px;top: 30px;font-weight: bold;">
+	<div style="font-weight: bold;">
 		The milliseconds between of each day(default 60): <input type="number" name="" value="" onchange="LifeGrid.changeSpeed(this.value)">
 	</div>
 	<div>
-		<button onclick="LifeGrid.reset()" style="position: absolute; left: 15px;top: 50px;font-weight: bold;width: 80px;height: 40px;font-size: 22px;color: red;">
+		<button onclick="LifeGrid.reset()" style="font-weight: bold;width: 80px;height: 40px;font-size: 22px;color: red;">
 			Reset
 		</button>
-		<button onclick="switchmove()" style="position: absolute; color: red;left: 105px;top: 50px;font-weight: bold;width: 160px;height: 20px;">
+		<button onclick="switchmove()" style="font-weight: bold;width: 160px;height: 20px;">
 			putting down cells: on/off
 		</button>
-		<span style="position: absolute; color: black;left: 265px;top: 50px;font-weight: bold;">
-			click functions what?
-		</span>
-		<button onclick="function(){}" style="position: absolute; color: red;left: 165px;top: 70px;font-weight: bold;width: 50px;height: 25px;">
-			glider
+		<button onclick="stepchange();" style="font-weight: bold;width: 60px;height: 30px;">
+			on/off
 		</button>
-		<button onclick="" style="position: absolute; color: red;left: 225px;top: 70px;font-weight: bold;width: 50px;height: 25px;">
-			LWSS
-		</button>
-		<button onclick="" style="position: absolute; color: red;left: 285px;top: 70px;font-weight: bold;width: 50px;height: 25px;">
-			Reset
-		</button>
+		<select style="font-weight: bold;" onchange="LifeGrid.changeClick(this.value)">
+			<option value="glider">
+				Glider
+			</option>
+			<option value="lwss">
+				LWSS
+			</option>
+			<option value="block">
+				Block
+			</option>
+		</select>
 	</div>
 </body>
-<canvas style="border: 2px solid green" id="main"></canvas>
 <script src="main.js"></script>
 <script type="text/javascript">
+	var c1 = document.getElementsByTagName('canvas')[0];
 	LifeGrid.init();
 	LifeGrid.run();
 	LifeGrid.step();
-	window.onmousemove = LifeGrid.mousemove.bind(LifeGrid);
-	window.onclick = LifeGrid.mouseclick.bind(LifeGrid);
+	var loop;
+	function controls(){
+		c1.onmousemove = LifeGrid.mousemove.bind(LifeGrid);
+		c1.onclick = LifeGrid.mouseclick.bind(LifeGrid);
+		loop = setTimeout(controls, 15);
+	}
+	controls();
 	function switchmove(){
 		LifeGrid.controls[0] = !LifeGrid.controls[0];
+	}
+	function stepchange(){
+		LifeGrid.running = !LifeGrid.running;
 	}
 </script>
 </html>
