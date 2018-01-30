@@ -7,7 +7,7 @@ var LifeGrid = {
 	controls: [false,'glider'],
 	running: true,
 	get: function(x,y){
-		var v = this.cells[x+y*this.cx];
+		var v = this.cells[x%this.cx+(y%this.cy)*this.cx];
 		return v;
 	},
 	change: function(x,y,v){
@@ -38,8 +38,8 @@ var LifeGrid = {
 	},
 	mousemove: function(event){
 		var e = event || window.event;
-		var x = Math.floor(e.clientX/this.size);
-		var y = Math.floor(e.clientY/this.size);
+		var x = Math.floor(e.offsetX/this.size);
+		var y = Math.floor(e.offsetY/this.size);
 		if(this.controls[0]) this.change(x,y,1);
 	},
 	changeClick: function(name){
@@ -47,8 +47,8 @@ var LifeGrid = {
 	},
 	mouseclick: function(event){
 		var e = event || window.event;
-		var px = Math.floor(e.clientX/this.size);
-		var py = Math.floor(e.clientY/this.size);
+		var px = Math.floor(e.offsetX/this.size);
+		var py = Math.floor(e.offsetY/this.size);
 		if(this.controls[1] == 'glider'){
 			for(var x=-1;x<=1;x++){
 				for(var y=-1;y<=1;y++){
