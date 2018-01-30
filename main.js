@@ -57,7 +57,7 @@ var LifeGrid = {
 		for(var x=0;x<this.cx;x++){
 			for(var y=0;y<this.cy;y++){
 				var c = this.get(x,y) ? this.life : this.dead;
-				var c2 = "#666666";
+				var c2 = "#777777";
 				this.D.rect(x*this.size,y*this.size,this.size,this.size,c,c2);
 			}
 		}
@@ -67,8 +67,10 @@ var LifeGrid = {
 
 		/*
 			Basic rules:
-			- a dead cell becomes live if it had exactly 3 live neighbours during the day
-			- a live cell becomes dead unless it had exactly 2 or 3 live neighbours during the day
+			Any live cell with fewer than two live neighbours dies (referred to as underpopulation or exposure[1]).
+			Any live cell with more than three live neighbours dies (referred to as overpopulation or overcrowding).
+			Any live cell with two or three live neighbours lives, unchanged, to the next generation.
+			Any dead cell with exactly three live neighbours will come to life.
 		*/
 
 		var bcells = []; // buffer cells
@@ -79,11 +81,16 @@ var LifeGrid = {
 			for(var yy=0;yy<this.cy;yy++){
 				if(this.get(xx,yy)){
 					var n = this.returnNumberOfNeighboursAlive(xx,yy);
-					if(n!=2 && n!=3){
+					n--;
+					if(n<2 || n>3){
 						bcells[xx+yy*this.cx] = 0;
 					}
+					if(n == 2 || n == 3){
+						bcells[xx+yy*this.cx] = 1;
+					}
 				}else{
-					if(this.returnNumberOfNeighboursAlive(xx,yy) == 3){
+					var n = this.returnNumberOfNeighboursAlive(xx,yy);
+					if(n == 3){
 						bcells[xx+yy*this.cx] = 1;
 					}
 				}
