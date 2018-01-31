@@ -2,7 +2,7 @@ var LifeGrid = {
 	speed: 20,
 	life: "#00FF00",
 	dead: "#000000",
-	size: 14,
+	size: 12.5,
 	cells: [],
 	controls: [false,'glider a'],
 	running: true,
@@ -104,6 +104,8 @@ var LifeGrid = {
 				25+14*38,
 			];
 			this.add(38,15,s,px,py);
+		}else if(this.controls[1] == 'blank'){
+			for(var x=-4;x<=4;x++){for(var y=-4;y<=4;y++){this.change(px+x,py+y,0);}}
 		}
 	},
 	init: function(s){
