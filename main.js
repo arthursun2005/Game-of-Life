@@ -1,7 +1,7 @@
 var LifeGrid = {
 	speed: 60,
 	life: "#00FF00",
-	dead: "#FFFFFF",
+	dead: "#000000",
 	size: 15,
 	cells: [],
 	controls: [false,'glider'],
@@ -69,6 +69,14 @@ var LifeGrid = {
 			for(var x=0;x<=1;x++){
 				for(var y=0;y<=1;y++){
 					this.change(px+x,py+y,1);
+				}
+			}
+		}else if(this.controls[1] == 'exploder'){
+			for(var x=-1;x<=1;x++){
+				for(var y=-1;y<=2;y++){
+					var n = x+1+(y+1)*3;
+					if(n == 1 || (n>2 && n<7) || n == 8 || n == 10){this.change(px+x,py+y,1);
+					}else{this.change(px+x,py+y,0);}
 				}
 			}
 		}
