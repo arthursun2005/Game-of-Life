@@ -9,12 +9,14 @@
 </head>
 <canvas style="border: 2px solid green" id="main"></canvas>
 <body>
+	<!--
 	<div style="font-weight: bold;">
 		Enter the cell size(default 15px): <input type="number" name="" value="" onchange="LifeGrid.changeSize(this.value);">
 	</div>
 	<div style="font-weight: bold;">
 		The milliseconds between of each day(default 60): <input type="number" name="" value="" onchange="LifeGrid.changeSpeed(this.value)">
 	</div>
+	!-->
 	<div>
 		<button onclick="LifeGrid.reset()" style="font-weight: bold;width: 80px;height: 40px;font-size: 22px;color: red;">
 			Reset
@@ -26,17 +28,35 @@
 			on/off
 		</button>
 		<select style="font-weight: bold;" onchange="LifeGrid.changeClick(this.value)">
-			<option value="glider">
-				Glider
+			<option value="glider a">
+				Glider A
 			</option>
-			<option value="lwss">
-				LWSS
+			<option value="glider b">
+				Glider B
+			</option>
+			<option value="lwss r">
+				LWSS (right)
+			</option>
+			<option value="lwss l">
+				LWSS (left)
+			</option>
+			<option value="lwss u">
+				LWSS (up)
+			</option>
+			<option value="lwss d">
+				LWSS (down)
 			</option>
 			<option value="block">
 				Block
 			</option>
+			<option value="blinker">
+				Blinker
+			</option>
 			<option value="exploder">
 				Exploder
+			</option>
+			<option value="glider gun">
+				Gosper Glider Gun
 			</option>
 		</select>
 	</div>
@@ -47,13 +67,8 @@
 	LifeGrid.init();
 	LifeGrid.run();
 	LifeGrid.step();
-	var loop;
-	function controls(){
-		c1.onmousemove = LifeGrid.mousemove.bind(LifeGrid);
-		c1.onclick = LifeGrid.mouseclick.bind(LifeGrid);
-		loop = setTimeout(controls, 15);
-	}
-	controls();
+	c1.onmousemove = LifeGrid.mousemove.bind(LifeGrid);
+	c1.onclick = LifeGrid.mouseclick.bind(LifeGrid);
 	function switchmove(){
 		LifeGrid.controls[0] = !LifeGrid.controls[0];
 	}
