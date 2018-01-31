@@ -106,6 +106,8 @@ var LifeGrid = {
 			this.add(38,15,s,px,py);
 		}else if(this.controls[1] == 'blank'){
 			for(var x=-4;x<=4;x++){for(var y=-4;y<=4;y++){this.change(px+x,py+y,0);}}
+		}else if(this.controls[1] == '10 cell row'){
+			for(var x=-5;x<=4;x++){for(var y=0;y<=0;y++){this.change(px+x,py+y,1);}}
 		}
 	},
 	init: function(s){
@@ -118,7 +120,7 @@ var LifeGrid = {
 		this.cx = Math.ceil(this.ww/this.size);
 		this.cy = Math.ceil(this.hh/this.size);
 		for(var i=0;i<this.cx*this.cy;i++){
-			this.cells[i] = Math.random()<1/2 ? 1 : 0;
+			this.cells[i] = Math.random()<1/4 ? 1 : 0;
 		}
 	},
 	draw: function(){
