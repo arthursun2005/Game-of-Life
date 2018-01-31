@@ -2,12 +2,12 @@ var LifeGrid = {
 	speed: 20,
 	life: "#00FF00",
 	dead: "#000000",
-	size: 12.5,
+	size: 8,
 	cells: [],
 	controls: [false,'glider a'],
 	running: true,
 	get: function(x,y){
-		var v = this.cells[x%this.cx+(y%this.cy)*this.cx];
+		var v = this.cells[x+y*this.cx];
 		return v;
 	},
 	change: function(x,y,v){
@@ -17,11 +17,11 @@ var LifeGrid = {
 		// including itself
 		var ns = [];
 		for(var px=x-1;px<=x+1;px++){
-			if(px<0) continue;
 			for(var py=y-1;py<=y+1;py++){
-				if(py<0) continue;
-				var n = (px-x+1)%this.cx+(py-y+1)*3;
-				var value = this.get(px,py) ? 1 : 0;
+				var xx = (px+this.cx)%this.cx;
+				var yy = (py+this.cy)%this.cy;
+				var n = (px-x+1)+(py-y+1)*3;
+				var value = this.get(xx,yy) ? 1 : 0;
 				ns[n] = value;
 			}
 		}
@@ -38,9 +38,11 @@ var LifeGrid = {
 	},
 	mousemove: function(event){
 		var e = event || window.event;
-		var x = Math.floor(e.offsetX/this.size);
-		var y = Math.floor(e.offsetY/this.size);
-		if(this.controls[0]) this.change(x,y,1);
+		var px = Math.floor(e.offsetX/this.size);
+		var py = Math.floor(e.offsetY/this.size);
+		if(this.controls[0]){
+			for(var x=-1;x<=1;x++){for(var y=-1;y<=1;y++){this.change(px+x,py+y,1);}}
+		}
 	},
 	changeClick: function(name){
 		this.controls[1] = name;
@@ -127,8 +129,7 @@ var LifeGrid = {
 		for(var x=0;x<this.cx;x++){
 			for(var y=0;y<this.cy;y++){
 				var c = this.get(x,y) ? this.life : this.dead;
-				var c2 = "#777777";
-				this.D.rect(x*this.size,y*this.size,this.size,this.size,c,c2);
+				this.D.fillRect(x*this.size,y*this.size,this.size,this.size,c);
 			}
 		}
 	},
