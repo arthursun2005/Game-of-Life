@@ -1,7 +1,7 @@
 var LifeGrid = {
-	speed: 20,
+	speed: 100,
 	life: "#00FF00",
-	dead: "#000000",
+	dead: "#00000080",
 	size: 8,
 	cells: [],
 	controls: [false,'glider a'],
@@ -177,7 +177,6 @@ var LifeGrid = {
 		/********************************/
 	},
 	run: function(){
-		this.D.rect(0,0,100,100,"#FFFFFF");
 		this.draw();
 		var run_handler = this.run.bind(this);
 		var speed = this.speed;
@@ -186,9 +185,12 @@ var LifeGrid = {
 	changeSize: function(s){
 		if(s>0){
 			this.size = s;
+			this.cells = [];
 			this.cx = Math.ceil(this.ww/this.size);
 			this.cy = Math.ceil(this.hh/this.size);
-			for(var i=0;i<this.cx*this.cy;i++){this.cells[i]=0;}
+			for(var i=0;i<this.cx*this.cy;i++){
+				this.cells[i] = Math.random()<1/4 ? 1 : 0;
+			}
 		}else{
 			alert("Enter a positve number for size");
 		}
@@ -199,6 +201,14 @@ var LifeGrid = {
 		}else{
 			alert("Enter a positve number for speed");
 		}
+	},
+	changeTransparency: function(s){
+		var s2 = "";
+		var s1 = "#000000";
+		if(s<16) s2+="0";
+		s2+=decimalTo(s,16);
+		console.log(s2);
+		this.dead = s1.concat(s2);
 	},
 	reset: function(){
 		for(var i=0;i<this.cx*this.cy;i++){this.cells[i]=0;}

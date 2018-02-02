@@ -1,3 +1,27 @@
+const letters = [
+	"A","B","C","D","E","F","G","H","I","J","K","L","M","N","O","P","Q","R","S","T","U","V","W","X","Y","Z"
+];
+function flipString(t){
+	// return t.split("").reverse().join("");
+	var l = t.length, r = "";
+	for(var i=l-1;i>=0;i--){
+		r+=t.substring(i,i+1);
+	}
+	return r;
+}
+function decimalTo(n,t){
+	var bn = n, a = "";
+	while(bn>1/t){
+		var r = bn%16;
+		if(r>9 && r<46){
+			r = letters[r-10];
+		}
+		a+=r;
+		bn = Math.floor(bn / 16);
+	}
+	a = flipString(a);
+	return a;
+}
 function dist2(x1,y1,x2,y2){
 	return Math.sqrt(Math.pow(x2-x1,2)+Math.pow(y2-y1,2));
 }
