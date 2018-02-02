@@ -2,12 +2,7 @@ const letters = [
 	"A","B","C","D","E","F","G","H","I","J","K","L","M","N","O","P","Q","R","S","T","U","V","W","X","Y","Z"
 ];
 function flipString(t){
-	// return t.split("").reverse().join("");
-	var l = t.length, r = "";
-	for(var i=l-1;i>=0;i--){
-		r+=t.substring(i,i+1);
-	}
-	return r;
+	return t.split("").reverse().join("");
 }
 function decimalTo(n,t){
 	var bn = n, a = "";
