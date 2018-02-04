@@ -1,4 +1,4 @@
-var LifeGrid = {
+var Life = {
 	speed: 100,
 	life: "#00FF00",
 	dead: "#00000080",
@@ -6,6 +6,7 @@ var LifeGrid = {
 	cells: [],
 	controls: [false,'glider a'],
 	running: true,
+	wrap: true,
 	get: function(x,y){
 		var v = this.cells[x+y*this.cx];
 		return v;
@@ -46,7 +47,6 @@ var LifeGrid = {
 	},
 	changeClick: function(name){
 		this.controls[1] = name;
-		console.log(name);
 	},
 	add: function(dx,dy,s,px,py){
 		for(var x=-1;x<=dx-2;x++){
@@ -88,6 +88,15 @@ var LifeGrid = {
 			this.add(3,4,s,px,py);
 		}else if(this.controls[1] == 'blinker'){
 			for(var x=-1;x<=-1;x++){for(var y=-1;y<=1;y++){this.change(px+x,py+y,1);}}
+		}else if(this.controls[1] == 'eater 1'){
+			var s = [0,1,4,6,10,14,15];
+			this.add(4,4,s,px,py);
+		}else if(this.controls[1] == 'eater 2'){
+			var s = [3,5,6,8,9,10,12,13,14,22,23,24,26,27,31,33,38,40,46];
+			this.add(7,7,s,px,py);
+		}else if(this.controls[1] == 'ss1'){
+			var s = [0,1,2,3,4,5,6,7, 9,10,11,12,13, 17,18,19, 26,27,28,29,30,31,32, 34,35,36,37,38];
+			this.add(39,1,s,px,py);
 		}else if(this.controls[1] == 'glider gun'){
 			var s = [
 				23,24,34,35,
@@ -180,7 +189,7 @@ var LifeGrid = {
 		this.draw();
 		var run_handler = this.run.bind(this);
 		var speed = this.speed;
-		setTimeout(run_handler, 10);
+		setTimeout(run_handler, 15);
 	},
 	changeSize: function(s){
 		if(s>0){
@@ -189,7 +198,7 @@ var LifeGrid = {
 			this.cx = Math.ceil(this.ww/this.size);
 			this.cy = Math.ceil(this.hh/this.size);
 			for(var i=0;i<this.cx*this.cy;i++){
-				this.cells[i] = Math.random()<1/4 ? 1 : 0;
+				this.cells[i] = 0;
 			}
 		}else{
 			alert("Enter a positve number for size");

@@ -11,14 +11,14 @@
 <body>
 	<!--
 	<div style="font-weight: bold;">
-		Enter the cell size(default 15px): <input type="number" name="" value="" onchange="LifeGrid.changeSize(this.value);">
+		Enter the cell size(default 15px): <input type="number" name="" value="" onchange="Life.changeSize(this.value);">
 	</div>
 	<div style="font-weight: bold;">
-		The milliseconds between of each day(default 60): <input type="number" name="" value="" onchange="LifeGrid.changeSpeed(this.value)">
+		The milliseconds between of each day(default 60): <input type="number" name="" value="" onchange="Life.changeSpeed(this.value)">
 	</div>
 	!-->
 	<div>
-		<button onclick="LifeGrid.reset()" style="font-weight: bold;width: 80px;height: 40px;font-size: 22px;color: red;">
+		<button onclick="Life.reset()" style="font-weight: bold;width: 80px;height: 40px;font-size: 22px;color: red;">
 			Reset
 		</button>
 		<button onclick="switchmove()" style="font-weight: bold;width: 160px;height: 20px;">
@@ -27,65 +27,85 @@
 		<button onclick="stepchange();" style="font-weight: bold;width: 60px;height: 30px;">
 			on/off
 		</button>
-		<select style="font-weight: bold;" onchange="LifeGrid.changeClick(this.value)">
-			<option value="glider a">
-				Glider A
-			</option>
-			<option value="glider b">
-				Glider B
-			</option>
-			<option value="lwss r">
-				LWSS (right)
-			</option>
-			<option value="lwss l">
-				LWSS (left)
-			</option>
-			<option value="lwss u">
-				LWSS (up)
-			</option>
-			<option value="lwss d">
-				LWSS (down)
-			</option>
-			<option value="blank">
-				Blank
-			</option>
-			<option value="block">
-				Block
-			</option>
-			<option value="blinker">
-				Blinker
-			</option>
-			<option value="10 cell row">
-				10 cell row
-			</option>
-			<option value="exploder">
-				Exploder
-			</option>
-			<option value="glider gun">
-				Gosper Glider Gun
-			</option>
+		<select style="font-weight: bold;" onchange="Life.changeClick(this.value)">
+			<optgroup label="Moving Things">
+				<option value="glider a">
+					Glider A
+				</option>
+				<option value="glider b">
+					Glider B
+				</option>
+				<option value="lwss r">
+					LWSS (right)
+				</option>
+				<option value="lwss l">
+					LWSS (left)
+				</option>
+				<option value="lwss u">
+					LWSS (up)
+				</option>
+				<option value="lwss d">
+					LWSS (down)
+				</option>
+			</optgroup>
+			<optgroup label="Normal">
+				<option value="blank">
+					Blank
+				</option>
+				<option value="block">
+					Block
+				</option>
+				<option value="blinker">
+					Blinker
+				</option>
+				<option value="10 cell row">
+					10 cell row
+				</option>
+				<option value="exploder">
+					Exploder
+				</option>
+			</optgroup>
+			<optgroup label="Guns">
+				<option value="glider gun">
+					Gosper Glider Gun
+				</option>
+			</optgroup>
+			<optgroup label="Eaters">
+				<option value="eater 1">
+					Eater 1
+				</option>
+				<option value="eater 2">
+					Eater 2
+				</option>
+			</optgroup>
+			<optgroup label="Others">
+				<option value="ss1">
+					Strange Stuff
+				</option>
+			</optgroup>
 		</select>
+	</div>
+	<div>
+		<b style="color: blue">Interval Control: </b><input type="range" name="" min="1" max="200" value="100" onchange="Life.changeSpeed(this.value);">
 
-		<b style="color: blue">Interval Control: </b><input type="range" name="" min="1" max="200" value="100" onchange="LifeGrid.changeSpeed(this.value);">
+		<b style="color: red">Cell Size: </b><input type="range" name="" min="6.5" max="20" step="0.1" value="14" onchange="Life.changeSize(this.value);">
 
-		<b style="color: red">Cell Size: </b><input type="range" name="" min="8" max="20" step="0.1" value="14" onchange="LifeGrid.changeSize(this.value);">
-
-		<b style="color: green">Dead Cell Transparency: </b><input type="range" name="" min="1" max="255" step="1" value="128" onchange="LifeGrid.changeTransparency(this.value);">
+		<b style="color: green">Dead Cell Transparency: </b><input type="range" name="" min="1" max="255" step="1" value="128" onchange="Life.changeTransparency(this.value);">
 	</div>
 </body>
 <script src="main.js"></script>
 <script type="text/javascript">
 	var c1 = document.getElementsByTagName('canvas')[0];
-	LifeGrid.init();
-	LifeGrid.run();
-	LifeGrid.step();
-	c1.onmousemove = LifeGrid.mousemove.bind(LifeGrid);
-	c1.onclick = LifeGrid.mouseclick.bind(LifeGrid);
+	Life.init();
+	Life.run();
+	Life.step();
+	c1.onmousemove = Life.mousemove.bind(Life);
+	c1.onclick = Life.mouseclick.bind(Life);
 	function switchmove(){
-		LifeGrid.controls[0] = !LifeGrid.controls[0];
+		Life.controls[0] = !Life.controls[0];
 	}
 	function stepchange(){
-		LifeGrid.running = !LifeGrid.running;
+		Life.running = !Life.running;
 	}
 </script>
 </html>
